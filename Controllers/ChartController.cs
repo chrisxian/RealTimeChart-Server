@@ -13,6 +13,8 @@ public class ChartController : ControllerBase
         _hub = hub;
     }
 
+    // ChartController(webapi) has to be used, becuase the timer has to be started trigger by the client, but the Hub instance is instanciated per each request,
+    // and the HubConext has to be injected by ASP.NET Core DI service.
     public IActionResult Get()
     {
         var timerManager = new TimerManager(() => _hub.Clients.All.NotifyChartDataUpdated(DataManager.GetData()));
